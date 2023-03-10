@@ -34,7 +34,8 @@ def load_df_as_pandas(directory:str, preprocess=False, export=False) -> pd.DataF
     if preprocess:
         #dict_out = dict()
         sentiment = df["label"].apply(lambda x: "Positive" if x == 1 else "Negative")
-        preprocessed_text = df["text"].apply(lambda x: remove_spoiler_alerts(remove_line_breaks(x)))
+        #preprocessed_text = df["text"].apply(lambda x: remove_spoiler_alerts(remove_line_breaks(x)))
+        preprocessed_text = df["text"].apply(lambda x: remove_line_breaks(x))
         #dict_out["text"] = preprocessed_text
         #dict_out["label"] = df["label"]
         #dict["sentiment"] = sentiment
@@ -46,7 +47,7 @@ def load_df_as_pandas(directory:str, preprocess=False, export=False) -> pd.DataF
         }
         if export:
             df_preprocessed = pd.DataFrame(dict_out)
-            new_dir = edit_directory_csv_file(directory, "preprocessed")
+            new_dir = edit_directory_csv_file(directory, "preprocessed_v2")
             df_preprocessed.to_csv(new_dir, index=False, header=True)
         return df_preprocessed
     return df
@@ -58,11 +59,11 @@ if __name__=="__main__":
     df = pd.read_csv(TRAIN_DIR)
     print(df["text"].iloc[104])
     print("++++++++++++++++++++++++++++++")
-    print(remove_spoiler_alerts(remove_line_breaks(df["text"].iloc[104])))
+    #print(remove_spoiler_alerts(remove_line_breaks(df["text"].iloc[104])))
 
     """df_1 = load_df_as_pandas(DEV_DIR, preprocess=True, export=True)
     print(df_1.head(110))"""
-    df_2 = load_df_as_pandas(TEST_DIR, preprocess=True, export=True)
+    df_2 = load_df_as_pandas(TRAIN_DIR, preprocess=True, export=True)
     print(df_2.head(110))
 
     
