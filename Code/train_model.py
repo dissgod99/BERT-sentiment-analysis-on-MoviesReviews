@@ -8,11 +8,11 @@ from Dataset_Loader import Dataset
 
 
 #Training constants
-MAX_LENGTH = 512
+MAX_LENGTH = 256
 LR = 2e-5
 CHECKPOINT = "bert-base-cased"
-BATCH_SIZE = 4
-EPOCHS = 3
+BATCH_SIZE = 16
+EPOCHS = 1
 
 tokenizer = BertTokenizer.from_pretrained(CHECKPOINT)
 
